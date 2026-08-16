@@ -63,7 +63,7 @@ The basic communication path is:
                           ▼
                        Internet
 
----
+```
 🧰 Hardware Used
 1. ESP32-S3
 
@@ -75,4 +75,4 @@ Example development environment used during testing:
 
 Board: ESP32S3 Dev Module
 Serial Port: COM3
----
+
