@@ -1,72 +1,78 @@
-# ESP32S3-A7672S-Internet-Connectivity
-Internet connectivity using ESP32-S3 and SIMCom A7672S LTE modem, with AT-command configuration, PDP activation, USB/NDIS networking, DNS verification, routing tests, and Internet connectivity validation.
+# ESP32-S3 + SIMCom A7672S LTE Internet Connectivity
 
+## 📌 Project Overview
 
-A practical project exploring how to use the **SIMCom A7672S 4G/LTE modem with an ESP32-S3** to provide cellular Internet connectivity.
+This project demonstrates how to connect an **ESP32-S3 development board** to the Internet using a **SIMCom A7672S LTE modem**.
 
-The project started with direct UART communication between the ESP32-S3 and the A7672S. It was then extended to establish cellular network connectivity and expose the modem's Internet connection to a Windows PC through **USB/RNDIS**.
+The main objective of this project was to understand how the A7672S modem can establish a cellular data connection and how that connection can be exposed to a Windows computer through the modem's **USB/Remote NDIS network interface**.
 
-The long-term goal is to turn the ESP32-S3 + A7672S combination into a cellular gateway for an ESP-NOW-based network of multiple ESP32-S3 devices, with MQTT used for cloud communication.
+Instead of using the computer's Wi-Fi connection, the goal was to verify that Internet traffic could be routed through the **SIM card → A7672S LTE modem → USB/NDIS → Windows** path.
 
-> **Current status:** The A7672S cellular Internet connection has been successfully established and tested from Windows through the USB/RNDIS interface. ESP-NOW mesh networking and MQTT integration are planned for the next phase.
+The project involved:
+
+- Communicating with the A7672S using AT commands
+- Checking the modem model and firmware
+- Verifying SIM card status
+- Checking cellular network registration
+- Checking packet attachment
+- Checking active PDP contexts
+- Checking the assigned cellular IP address
+- Checking the configured APN
+- Checking DNS configuration
+- Configuring the modem's USB networking mode
+- Changing the modem dial mode
+- Connecting the modem to Windows through USB
+- Identifying the Remote NDIS network adapter
+- Checking Windows IP configuration
+- Checking Windows routing
+- Testing connectivity to the local gateway
+- Testing Internet connectivity using `8.8.8.8`
+- Testing DNS resolution using `google.com`
+- Using `tracert` to verify the Internet path
+
+The final tests successfully demonstrated Internet connectivity from Windows through the network interface associated with the A7672S setup.
 
 ---
 
-## Project Overview
+# 🎯 Project Objective
 
-The main hardware used in this project is:
+The primary objective was to establish a working cellular Internet connection using:
 
-- ESP32-S3 development board
-- SIMCom A7672S 4G/LTE modem
-- SIM card with an active cellular data connection
-- USB connection between the modem board and the computer
-- Windows PC for testing and debugging
+**ESP32-S3 + SIMCom A7672S + SIM card**
 
-The project is being developed in stages.
-
-The first stage focuses on understanding and validating the A7672S modem and its cellular Internet connection.
-
-The next stage will introduce multiple ESP32-S3 boards communicating using ESP-NOW, followed by MQTT communication through the ESP32-S3 that has the A7672S modem.
-
----
-
-# Current Architecture
-
-The current working setup is:
+The basic communication path is:
 
 ```text
-                 Cellular Network
-                       │
-                       │ 4G/LTE
-                       ▼
-                ┌──────────────┐
-                │   A7672S     │
-                │  4G Modem    │
-                └──────┬───────┘
-                       │
-                       │ USB / RNDIS
-                       ▼
-                ┌──────────────┐
-                │   Windows    │
-                │      PC      │
-                └──────────────┘
-                       │
-                       ▼
-                   Internet
+                    Cellular Network
+                          │
+                          │ LTE
+                          ▼
+                    ┌───────────┐
+                    │  A7672S   │
+                    │ LTE Modem │
+                    └─────┬─────┘
+                          │
+                    USB / NDIS
+                          │
+                          ▼
+                    ┌───────────┐
+                    │  Windows  │
+                    │     PC    │
+                    └───────────┘
+                          │
+                          ▼
+                       Internet
 
-Hardware
-ESP32-S3
+---
+🧰 Hardware Used
+1. ESP32-S3
 
-The ESP32-S3 is used as the main microcontroller for controlling and communicating with the A7672S.
+The ESP32-S3 development board is used as the microcontroller platform.
 
-The initial UART configuration used in the project is:
+The ESP32-S3 communicates with the A7672S modem and provides the serial interface used to send AT commands.
 
-ESP32-S3 GPIO18  →  A7672S TX
-ESP32-S3 GPIO17  →  A7672S RX
+Example development environment used during testing:
 
-The UART configuration used during the initial testing was:
-
-Baud rate: 115200
-Data bits: 8
-Parity: None
-Stop bits: 1
+Board: ESP32S3 Dev Module
+Serial Port: COM3
+---
