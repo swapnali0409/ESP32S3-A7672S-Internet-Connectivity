@@ -76,3 +76,141 @@ Example development environment used during testing:
 Board: ESP32S3 Dev Module
 Serial Port: COM3
 
+## SIMCom A7672S
+
+The cellular modem used in this project is:
+
+SIMCom A7672S-LASC
+
+The modem supports LTE cellular connectivity and provides Internet access through the inserted SIM card.
+
+The modem was identified using:
+
+AT+CGMM
+
+The response was:
+
+A7672S-LASC
+
+##  SIM Card
+
+A working SIM card with cellular data service is required.
+
+The SIM card must:
+
+Be inserted correctly into the A7672S board
+Be active
+Have cellular network coverage
+Have a working mobile-data pla
+
+## USB Data Cable
+
+A proper USB data cable is required.
+
+A charging-only USB cable will not provide the required communication/network interface.
+
+## 💻 Software Used
+
+The project was tested using:
+
+Windows
+Arduino IDE
+ESP32-S3 board support
+Serial Monitor
+Windows Command Prompt
+PowerShell
+Windows network utilities
+
+Important Windows commands used during testing include:
+
+ipconfig
+route print
+ping
+tracert
+powershell
+netsh
+
+## 🔌 Communication With the A7672S
+
+The A7672S is controlled using standard AT commands.
+
+The ESP32-S3 sends commands to the modem through a serial interface.
+
+For example:
+
+AT
+
+The modem should respond:
+
+OK
+
+This is the simplest way to confirm that the ESP32-S3 and A7672S are communicating correctly.
+
+## 🧪 Step 1 — Check Basic Communication
+
+The first command used was:
+
+AT
+
+Expected response:
+
+OK
+
+This confirms that the modem is responding to AT commands.
+
+If OK is received, communication with the modem is working.
+
+## 🔍 Step 2 — Check Modem Model
+
+The modem model was checked using:
+
+AT+CGMM
+
+Response:
+
+A7672S-LASC
+
+This confirmed that the connected modem is an A7672S-LASC.
+
+## 🔧 Step 3 — Check Firmware Version
+
+The firmware revision was checked using:
+
+AT+CGMR
+
+Response obtained during testing:
+
++CGMR: A131B01A7672M6
+
+Therefore, the firmware reported by the modem was:
+
+A131B01A7672M6
+
+## 📱 Step 4 — Check SIM Card Status
+
+The SIM card status was checked using:
+
+AT+CPIN?
+
+Response:
+
++CPIN: READY
+
+
+OK
+
+The important part is:
+
++CPIN: READY
+
+This means the SIM card was detected and ready for use.
+
+
+
+
+
+
+
+
+
+
