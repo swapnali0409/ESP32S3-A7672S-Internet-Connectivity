@@ -633,7 +633,7 @@ with gateway:
 
 Windows uses route metrics to decide which route should normally be preferred when multiple default routes are present.
 
-⚙️ Changing Network Interface Metric
+## ⚙️ Changing Network Interface Metric
 
 The Remote NDIS interface was identified as interface index:
 
