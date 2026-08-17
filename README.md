@@ -65,7 +65,8 @@ The basic communication path is:
 
 ```
 ##  🧰 Hardware Used
-1. ESP32-S3
+
+## 1. ESP32-S3
 
 The ESP32-S3 development board is used as the microcontroller platform.
 
