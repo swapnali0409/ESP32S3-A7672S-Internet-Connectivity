@@ -102,7 +102,7 @@ The SIM card must:
 Be inserted correctly into the A7672S board
 Be active
 Have cellular network coverage
-Have a working mobile-data pla
+Have a working mobile-data plan
 
 ## USB Data Cable
 
