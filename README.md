@@ -271,6 +271,7 @@ AT+CGPADDR
 Response:
 
 +CGPADDR: 1,10.201.27.246
+
 +CGPADDR: 8,10.240.227.70,254.128.0.0.0.0.0.0.0.0.0.0.241.73.26.12
 
 
@@ -291,7 +292,9 @@ AT+CGDCONT?
 The modem returned:
 
 +CGDCONT: 1,"IP","www","10.201.27.246",0,0,,,,
+
 +CGDCONT: 8,"IPV4V6","IMS","10.240.227.70,254.128.0.0.0.0.0.0.0.0.0.0.241.73.26.12",0,0,0,2,1,1
+
 +CGDCONT: 9,"IP","JIONET"
 
 
@@ -445,7 +448,9 @@ The relevant result was:
 Name       InterfaceDescription                           Status LinkSpeed
 ----       --------------------                           ------ ---------
 Wi-Fi      Realtek RTL8852BE WiFi 6 802.11ax PCIe Adapter Up     1.2 Gbps
+
 Ethernet 3 Remote NDIS based Internet Sharing Device      Up     10 Mbps
+
 Ethernet 2 VirtualBox Host-Only Ethernet Adapter          Up     1 Gbps
 
 The important interface was:
@@ -467,7 +472,9 @@ Ethernet adapter Ethernet 3:
 
 
    IPv4 Address. . . . . . . . . . . : 192.168.0.100
+   
    Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   
    Default Gateway . . . . . . . . . : 192.168.0.1
 
 This is important because it shows that Windows received a local IP configuration from the USB networking interface.
@@ -494,9 +501,13 @@ ping 192.168.0.1
 The result was successful:
 
 Pinging 192.168.0.1 with 32 bytes of data:
+
 Reply from 192.168.0.1: bytes=32 time<1ms TTL=128
+
 Reply from 192.168.0.1: bytes=32 time<1ms TTL=128
+
 Reply from 192.168.0.1: bytes=32 time<1ms TTL=128
+
 Reply from 192.168.0.1: bytes=32 time<1ms TTL=128
 
 Statistics:
@@ -514,9 +525,13 @@ ping 8.8.8.8
 The result was:
 
 Pinging 8.8.8.8 with 32 bytes of data:
+
 Reply from 8.8.8.8: bytes=32 time=58ms TTL=112
+
 Reply from 8.8.8.8: bytes=32 time=61ms TTL=112
+
 Reply from 8.8.8.8: bytes=32 time=59ms TTL=112
+
 Reply from 8.8.8.8: bytes=32 time=61ms TTL=112
 
 Statistics:
@@ -545,9 +560,13 @@ Windows resolved the hostname to:
 The response was:
 
 Pinging google.com [142.250.146.139] with 32 bytes of data:
+
 Reply from 142.250.146.139: bytes=32 time=63ms TTL=109
+
 Reply from 142.250.146.139: bytes=32 time=63ms TTL=109
+
 Reply from 142.250.146.139: bytes=32 time=63ms TTL=109
+
 Reply from 142.250.146.139: bytes=32 time=65ms TTL=109
 
 Statistics:
@@ -564,8 +583,11 @@ Average = 63ms
 This verified that:
 
 Internet connectivity was available.
+
 DNS resolution was working.
+
 The hostname google.com could be resolved to an IP address.
+
 The destination was reachable.
 
 ## 🛣️ Step 18 — Trace the Internet Route
@@ -580,13 +602,21 @@ Tracing route to 8.8.8.8 over a maximum of 30 hops
 
 
   1     *        *        *     Request timed out.
+  
   2     *        *        *     Request timed out.
+  
   3    18 ms     4 ms     4 ms  27.107.37.149
+  
   4     9 ms     *        *     203.199.133.233
+  
   5    19 ms     8 ms     8 ms  172.23.78.238
+  
   6     7 ms     7 ms     7 ms  115.113.165.98
+  
   7     7 ms    11 ms     8 ms  172.253.69.227
+  
   8     9 ms    12 ms     9 ms  142.250.227.71
+  
   9    11 ms    11 ms    14 ms  8.8.8.8
 
 
@@ -611,6 +641,7 @@ route print
 At one point, the routing table contained two default routes:
 
 0.0.0.0          0.0.0.0       10.10.10.1      10.10.13.70
+
 0.0.0.0          0.0.0.0      192.168.0.1    192.168.0.100
 
 These corresponded to different network interfaces.
@@ -658,8 +689,10 @@ On Windows:
 Press the Windows key.
 Type:
 cmd
+
 Right-click Command Prompt.
 Select:
+
 Run as administrator
 If Windows asks for permission, select Yes.
 
@@ -676,52 +709,64 @@ ipconfig
 More detailed:
 
 ipconfig /all
+
 Display network adapters
+
 Get-NetAdapter | Format-Table Name,InterfaceDescription,Status,LinkSpeed
+
 Display routing table
+
 route print
+
 Test local gateway
+
 ping 192.168.0.1
+
 Test Internet without DNS
+
 ping 8.8.8.8
+
 Test Internet with DNS
+
 ping google.com
+
 Trace route to the Internet
+
 tracert -d 8.8.8.8
 
 ## 📋 Important A7672S AT Command Reference
 
 The following commands were important during this project.
 
-AT Command	Purpose
+1.AT Command	Purpose
 
-AT	Check basic modem communication
+2.AT	Check basic modem communication
 
-AT+CGMM	Read modem model
+3.AT+CGMM	Read modem model
 
-AT+CGMR	Read firmware version
+4.AT+CGMR	Read firmware version
 
-AT+CPIN?	Check SIM status
+5.AT+CPIN?	Check SIM status
 
-AT+CGATT?	Check packet-domain attachment
+6.AT+CGATT?	Check packet-domain attachment
 
-AT+CGACT?	Check PDP context activation
+7.AT+CGACT?	Check PDP context activation
 
-AT+CGPADDR	Display PDP context IP addresses
+8.AT+CGPADDR	Display PDP context IP addresses
 
-AT+CGDCONT?	Display PDP/APN configuration
+9.AT+CGDCONT?	Display PDP/APN configuration
 
-AT+CDNSCFG?	Display DNS configuration
+10.AT+CDNSCFG?	Display DNS configuration
 
 AT+CGNAPN	Request automatic APN information
 
-AT+COPS?	Check current network/operator
+11.AT+COPS?	Check current network/operator
 
-AT+DIALMODE?	Check dial mode
+12.AT+DIALMODE?	Check dial mode
 
-AT+DIALMODE=0	Set dial mode
+13.AT+DIALMODE=0	Set dial mode
 
-AT$MYCONFIG="usbnetmode"	Check USB network mode
+14.AT$MYCONFIG="usbnetmode"	Check USB network mode
 
 ## 📚 Important Command Outputs
 Modem identification
@@ -736,18 +781,21 @@ AT+CGMR
 +CGMR: A131B01A7672M
 
 OK
+
 SIM status
 AT+CPIN?
 
 +CPIN: READY
 
 OK
+
 Packet attachment
 AT+CGATT?
 
 +CGATT: 1
 
 OK
+
 PDP activation
 AT+CGACT?
 
@@ -758,6 +806,7 @@ AT+CGACT?
 
 
 OK
+
 PDP IP address
 AT+CGPADDR
 
@@ -767,6 +816,7 @@ AT+CGPADDR
 
 
 OK
+
 PDP/APN configuration
 AT+CGDCONT?
 
@@ -777,6 +827,7 @@ AT+CGDCONT?
 
 
 OK
+
 DNS configuration
 AT+CDNSCFG?
 
@@ -786,18 +837,21 @@ Primary IPv4 DNS: 114.114.114.114,Secondary IPv4 DNS: 8.8.8.8
 Primary IPv6 DNS: ::,Secondary IPv6 DNS: ::
 
 OK
+
 Network operator
 AT+COPS?
 
 +COPS: 0,2,"405864",7
 
 OK
+
 USB network configuration
 AT$MYCONFIG="usbnetmode"
 
 $MYCONFIG: "usbnetmode",0,1
 
 OK
+
 Dial mode
 AT+DIALMODE?
 
@@ -812,40 +866,6 @@ AT+DIALMODE=0
 Response:
 
 OK
-
-## 🔄 Overall Data Flow
-
-The completed setup can be represented as:
-                 ┌─────────────────────┐
-                 │      SIM Card       │
-                 │   Mobile Data Plan  │
-                 └──────────┬──────────┘
-                            │
-                            │ Cellular / LTE
-                            ▼
-                 ┌─────────────────────┐
-                 │     SIMCom A7672S   │
-                 │      LTE Modem      │
-                 └──────────┬──────────┘
-                            │
-                            │ USB Network
-                            ▼
-                 ┌─────────────────────┐
-                 │       Windows       │
-                 │ Remote NDIS Adapter │
-                 └──────────┬──────────┘
-                            │
-                            │ IP Routing
-                            ▼
-                       Internet
-                            │
-             ┌──────────────┴──────────────┐
-             │                             │
-             ▼                             ▼
-        8.8.8.8                       google.com
-
-
-
 
 ## 🧠 What Each Layer Does
 SIM Card
@@ -907,26 +927,47 @@ Once the routing is configured correctly, applications on Windows can use the ce
 The following checks were successfully performed during the project:
 
  ESP32-S3 detected
+ 
  A7672S detected
+ 
  AT communication working
+ 
  A7672S model verified
+ 
  Firmware version verified
+ 
  SIM card detected
+ 
  SIM status reported as READY
+ 
  Packet attachment confirmed
+ 
  PDP context confirmed active
+ 
  Cellular IP address obtained
+ 
  APN configuration inspected
+ 
  DNS configuration inspected
+ 
  Network operator detected
+ 
  USB network mode inspected
+ 
  Dial mode configured
+ 
  Windows detected Remote NDIS adapter
+ 
  Windows received 192.168.0.100
+ 
  Local gateway reachable
+ 
  8.8.8.8 reachable
+ 
  google.com reachable
+ 
  DNS resolution working
+ 
  Internet route verified using tracert
  
 ## 🧪 Final Internet Connectivity Test
@@ -1127,9 +1168,13 @@ Internet
 The final tests showed:
 
 Local Gateway       → SUCCESS
+
 8.8.8.8             → SUCCESS
+
 google.com          → SUCCESS
+
 DNS Resolution      → SUCCESS
+
 Traceroute          → SUCCESS
 
 Therefore, the project successfully demonstrated cellular Internet connectivity using the SIMCom A7672S LTE modem and ESP32-S3-based control/configuration.
@@ -1182,27 +1227,46 @@ By checking each layer independently with AT commands and Windows networking too
 
 ## 📌 Key AT Command Quick Reference
 AT
+
 AT+CGMM
+
 AT+CGMR
+
 AT+CPIN?
+
 AT+CGATT?
+
 AT+CGACT?
+
 AT+CGPADDR
+
 AT+CGDCONT?
+
 AT+CDNSCFG?
+
 AT+CGNAPN
+
 AT+COPS?
+
 AT+DIALMODE?
+
 AT+DIALMODE=0
+
 AT$MYCONFIG="usbnetmode"
 
 ## 📌 Key Windows Commands Quick Reference
 ipconfig
+
 ipconfig /all
+
 route print
+
 ping 192.168.0.1
+
 ping 8.8.8.8
+
 ping google.com
+
 tracert -d 8.8.8.8
 
 PowerShell:
