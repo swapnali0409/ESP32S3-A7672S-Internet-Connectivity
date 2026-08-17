@@ -694,19 +694,33 @@ tracert -d 8.8.8.8
 The following commands were important during this project.
 
 AT Command	Purpose
+
 AT	Check basic modem communication
+
 AT+CGMM	Read modem model
+
 AT+CGMR	Read firmware version
+
 AT+CPIN?	Check SIM status
+
 AT+CGATT?	Check packet-domain attachment
+
 AT+CGACT?	Check PDP context activation
+
 AT+CGPADDR	Display PDP context IP addresses
+
 AT+CGDCONT?	Display PDP/APN configuration
+
 AT+CDNSCFG?	Display DNS configuration
+
 AT+CGNAPN	Request automatic APN information
+
 AT+COPS?	Check current network/operator
+
 AT+DIALMODE?	Check dial mode
+
 AT+DIALMODE=0	Set dial mode
+
 AT$MYCONFIG="usbnetmode"	Check USB network mode
 
 ## 📚 Important Command Outputs
